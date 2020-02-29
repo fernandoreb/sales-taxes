@@ -34,15 +34,15 @@ public class SalesProductsTaxesController {
 	public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam Float price,
 			@RequestParam Integer taxType) {
 
-		Product p = new Product();
-		p.setName(name);
-		p.setPrice(price);
+		Product product = new Product();
+		product.setName(name);
+		product.setPrice(price);
 
 		Optional<SaleTax> saleTax = saleTaxService.getSaleTaxById(taxType);
 
-		p.setSaleTax(saleTax.get());
-		productService.save(p);
-		return "Saved";
+		product.setSaleTax(saleTax.get());
+		productService.save(product);
+		return ""+product.getId();
 	}
 	
 	@GetMapping(path="/v1/tax")
@@ -59,7 +59,7 @@ public class SalesProductsTaxesController {
 		saleTax.setDescription(description);
 		saleTaxService.save(saleTax);
 		
-		return "Saved";
+		return ""+saleTax.getId();
 	}
 
 }
