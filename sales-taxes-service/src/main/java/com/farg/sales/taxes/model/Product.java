@@ -1,9 +1,12 @@
 package com.farg.sales.taxes.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Product {
@@ -16,7 +19,9 @@ public class Product {
 
 	private Float price;
 	
-	private Integer type;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tax_id", referencedColumnName = "id")
+	private SaleTax saleTax;
 
 	public Integer getId() {
 		return id;
@@ -42,13 +47,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public Integer getType() {
-		return type;
+	public SaleTax getSaleTax() {
+		return saleTax;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setSaleTax(SaleTax saleTax) {
+		this.saleTax = saleTax;
 	}
-	
-	
+		
 }
