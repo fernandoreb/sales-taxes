@@ -1,5 +1,7 @@
 package com.farg.sales.taxes.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,9 @@ public class ProductService {
 	
 	public void save(Product product) {
 		productRepository.save(product);
+	}
+	
+	public Optional<Product> getProductById(Integer id) {
+		return productRepository.findById(id);
 	}
 }
