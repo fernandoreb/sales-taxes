@@ -17,7 +17,7 @@ import com.farg.sales.taxes.service.SaleTaxService;
 
 @RestController
 @RequestMapping(path = "/sales")
-public class SalesTaxesController {
+public class SalesProductsTaxesController {
 
 	@Autowired
 	private ProductService productService;
@@ -51,11 +51,12 @@ public class SalesTaxesController {
 	}
 	
 	@PostMapping(path = "/v1/tax") // Map ONLY POST Requests
-	public @ResponseBody String addNewTax(@RequestParam String label, @RequestParam Integer percent) {
+	public @ResponseBody String addNewTax(@RequestParam String label, @RequestParam Integer percent, @RequestParam String description) {
 
 		SaleTax saleTax = new SaleTax();
 		saleTax.setLabel(label);
 		saleTax.setPercent(percent);
+		saleTax.setDescription(description);
 		saleTaxService.save(saleTax);
 		
 		return "Saved";

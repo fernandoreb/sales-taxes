@@ -15,6 +15,16 @@ public class SaleTax {
 	private Integer percent;
 	
 	private String label;
+	
+	private String description;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Integer getId() {
 		return id;
