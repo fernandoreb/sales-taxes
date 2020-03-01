@@ -8,7 +8,7 @@ A aplicação é dividida em 3 partes:
 
 ## Aplicação Web
 
-A Aplicação foi escrita em Angular e está disponível no diretório abaixo:
+A aplicação foi escrita em Angular e está disponível no diretório abaixo:
 
 * sales-taxes-web
 
@@ -16,19 +16,23 @@ A Aplicação foi escrita em Angular e está disponível no diretório abaixo:
 
 O Backend foi escrito em java, utilizando o framework *Spring Boot*. Os serviços são expostos utilizando o padrão REST. A documentação foi escrita no próprio código e, além disso, a documentação dos Controllers foi exposta via Swagger.
 
+Está disponível em:
+
+* sales-taxes-service
+
 ## Banco de Dados
 
 O Banco de dados utilizado é o MySQL, em forma de container Docker.
 
 ## Visão Geral da Solução
 
-Segue abaixo uma visão geral, de como esta estruturada a Aplicação:
+Segue abaixo uma visão geral, de como está estruturada a Aplicação:
 
 ![Visão Geral](files/OverviewSolution.png)
 
 * Camada de Aplicação: Composta pela Aplicação Angular e Swagger UI
 
-* Backend: Em Spring Boot, composto pelos módulos(layers) Controller, que é responsável por expor as funcionalidades em forma de API. Service, que é a camada de serviço consumida pelo controller. Repository, camada responsável por fazer a interface com a base de dados. Por fim, a camada Model, com todas as entidades utilizadas no backend.
+* Backend: Em Spring Boot, composto pelos módulos(layers) *Controller*, que é responsável por expor as funcionalidades em forma de API. *Service*, que é a camada de serviço consumida pelo controller. *Repository*, camada responsável por fazer a interface com a base de dados. Por fim, a camada *Model*, com todas as entidades utilizadas no backend.
 
 * Camada de dados: A base de dados, já mencionada utiliza um MySQL em docker.
 
@@ -63,9 +67,9 @@ mysql> grant all on db_sales.* to 'serviceuser'@'%';
 
 A Aplicação espera que o banco de dados esteja rodando na mesma máquina, acessando o endereco de loopback (127.0.0.1).
 
-Os fontes estão em: sales-taxes-service
-
 O projeto foi feito utilizando eclipse e maven.
+
+Os fontes estão em: sales-taxes-service
 
 Após compilar, para executar o jar:
 
@@ -124,6 +128,7 @@ As entidades *SaleTax, Product e ShoppingCart* têm um atributo identificador.
 Dois controllers foram criados.
 
 * SalesProductsTaxesController - Responsável por expor a api para manipulação dos produtos e taxas.
+
 * ShoppingCartController - Responsável por expor a api para manipulação dos carrinhos.
 
 #### Services
@@ -159,11 +164,11 @@ http://localhost:8080/swagger-ui.html#/
  
 ![Swagger](files/swagger_sales.png)
 
-As taxas deverao ser cadastradas atraves desta interface, metodo addNewTask
+As taxas deverão ser cadastradas através desta interface, metodo *addNewTask*.
 
 Exemplos: 
 
-Taxa 01 - Basica
+Taxa 01 - Básica
 ~~~
     percent: 10,
     label: Basic sales tax
@@ -177,30 +182,32 @@ Taxa 02 - Isento
     description: Books, food, and medical products that are exempt
 ~~~
 
-Taxa 03 - Importacao
+Taxa 03 - Importação
 ~~~
     percent: 5,
     label: Import duty tax
     description: Import duty is an additional sales tax applicable on all imported goods at a rate of 5%, with no exemptions.
 ~~~
 
-Após o cadastro das taxas, vamos cadastrar os produtos atraves do metod addNewProduct.
+Após o cadastro das taxas, vamos cadastrar os produtos através do método *addNewProduct*.
 
 Informe o nome e o preco.
 
-Atraves do metodo addSaleTaxToProduct, faca o relacionamento de uma taxa com um produto (pode ser feito n vezes). O Produto pode ter mais de uma taxa.
+Através do método *addSaleTaxToProduct*, faça o relacionamento de uma taxa com um produto (pode ser feito "n" vezes). O Produto pode ter mais de uma taxa.
 
 ### shopping-cart-controller
 
-Crie um carrinho em createShoppingCart.
+Crie um carrinho em *createShoppingCart*.
 
-Adicione produtos ao carrinho, atraves do metodo updateShoppingCart
+Adicione produtos ao carrinho, atraves do método *updateShoppingCart*.
 
-Para ver um resumo do carrinho, utilize o metodo getResumeOfShoppingCart
+Para ver um resumo do carrinho, utilize o método *getResumeOfShoppingCart*.
 
 ### Aplicação Web
 
-Como pre-requisito deve-se ter o npm e angular cli instalados.
+Como pré-requisito deve-se ter o *npm* e *Angular* cli instalados.
+
+A aplicação foi desenvolvida na *IDE Visual Studio Code*.
 
 Os fontes estão em: sales-taxes-web
 
@@ -209,14 +216,13 @@ Para instalar os pacotes, executar o comando abaixo dentro da pasta da Aplicaç�
 $ npm i
 ~~~
 
-Para a execução, basta executar o comando abaixo
+Para a execução, basta executar o comando abaixo:
 ~~~
 $ ng serve
 ~~~
 
-Endenreco da Aplicação: 
+Endereço da Aplicação: 
 http://localhost:4200/
-
 
 Após os produtos cadastrados:
 
