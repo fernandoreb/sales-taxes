@@ -1,0 +1,15 @@
+<h2>Cart Details</h2>
+
+<div *ngIf="shoppingCartResume">
+  <h4>Cart id: {{shoppingCartResume.shoppingCart.id}}</h4>
+  <h4>Products</h4>
+  <div *ngFor="let product of shoppingCartResume.shoppingCart.products; index as productId">
+    <h5> * {{ product.name }} - {{ product.price | currency }}</h5>
+  </div>
+  <h4>Total: {{ shoppingCartResume.total | currency }}</h4>
+  <h4>Tax: {{ shoppingCartResume.salesTaxes | currency }}</h4>
+
+  <br>
+  <a [routerLink]="['/cart']">Back</a>
+
+</div>

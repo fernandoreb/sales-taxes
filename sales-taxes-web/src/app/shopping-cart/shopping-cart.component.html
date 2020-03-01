@@ -1,0 +1,11 @@
+<h2>Cart List</h2>
+
+<div *ngFor="let cart of shoppingCarts; index as productId">
+
+  <h3>
+    <a [title]="cart.id + ' details'" [routerLink]="['/cartDet', cart.id]">
+      Cart number: {{ cart.id }}
+    </a>
+  </h3>
+
+</div>

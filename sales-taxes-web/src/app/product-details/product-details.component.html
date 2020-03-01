@@ -1,0 +1,16 @@
+<h2>Product Details</h2>
+
+<div *ngIf="product">
+  <h3>{{ product.name }}</h3>
+  <h4>{{ product.price | currency }}</h4>
+
+  <h3>Taxes</h3>
+  <div *ngFor="let saleTax of product.saleTaxes; index as saleTaxId">
+    <h4>{{ saleTax.label }} - {{ saleTax.percent/100 | percent }}</h4>
+  </div>
+  <h5>* If the product is exempt, the tax can't no be informed</h5>
+  <button (click)="addToCart(product)">Add to Cart</button>
+  <br>
+  <a [routerLink]="['/']">Back</a>
+
+</div>
