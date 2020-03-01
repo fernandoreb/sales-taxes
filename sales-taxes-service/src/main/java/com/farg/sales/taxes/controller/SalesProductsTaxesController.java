@@ -3,6 +3,7 @@ package com.farg.sales.taxes.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.farg.sales.taxes.model.Product;
@@ -60,6 +62,7 @@ public class SalesProductsTaxesController {
 	 * @return
 	 */
 	@PostMapping(path = "/v1/product")
+	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam Float price) {
 
 		Product product = new Product();
@@ -77,6 +80,7 @@ public class SalesProductsTaxesController {
 	 * @return
 	 */
 	@PutMapping(path = "/v1/product")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Product addSaleTaxToProduct(@RequestParam Integer salesTaxId, @RequestParam Integer productId) {
 		
 		Optional<SaleTax> saleTaxOp = saleTaxService.getSaleTaxById(salesTaxId);
@@ -105,6 +109,7 @@ public class SalesProductsTaxesController {
 	 * @return
 	 */
 	@PostMapping(path = "/v1/tax")
+	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody String addNewTax(@RequestParam String label, @RequestParam Integer percent, @RequestParam String description) {
 
 		SaleTax saleTax = new SaleTax();

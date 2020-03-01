@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * Entity for sales taxes
@@ -26,6 +27,7 @@ public class SaleTax {
 	 * Label of tax. 
 	 * example: Import duty tax
 	 */
+	@NotEmpty(message = "Please provide a label")
 	private String label;
 	
 	/**
@@ -33,6 +35,7 @@ public class SaleTax {
 	 * example: Import duty is an additional sales tax applicable on all 
 	 * imported goods at a rate of 5%, with no exemptions.
 	 */
+	@NotEmpty(message = "Please provide a description")
 	private String description;
 
 	public String getDescription() {

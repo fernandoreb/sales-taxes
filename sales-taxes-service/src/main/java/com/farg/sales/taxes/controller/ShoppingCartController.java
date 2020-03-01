@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.farg.sales.taxes.model.Product;
@@ -99,6 +101,7 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@PostMapping(path = "/v1/shoppingCart")
+	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody String createShoppingCart() {
 
 		ShoppingCart shoppingCart = new ShoppingCart();
@@ -115,6 +118,7 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@PutMapping(path = "/v1/shoppingCart")
+	@ResponseStatus(HttpStatus.CREATED)
 	public ShoppingCart updateShoppingCart(@RequestParam Integer cartId, @RequestParam Integer productId) {
 
 		Optional<ShoppingCart> shoppingCart = shoppingCartService.getCartById(cartId);

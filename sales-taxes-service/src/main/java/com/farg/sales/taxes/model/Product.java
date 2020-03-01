@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity for products
@@ -23,11 +25,13 @@ public class Product {
 	/**
 	 * Name of product
 	 */
+	@NotEmpty(message = "Please provide a name")
 	private String name;
 	
 	/**
 	 * Price of product
 	 */
+	@NotNull(message = "Please provide a price")
 	private Float price;
 	
 	/**
