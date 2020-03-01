@@ -5,6 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Entity for sales taxes
+ * @author fernandoreb
+ *
+ */
 @Entity
 public class SaleTax {
 	
@@ -12,10 +17,22 @@ public class SaleTax {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	/**
+	 * Percent of tax
+	 */
 	private Integer percent;
 	
+	/**
+	 * Label of tax. 
+	 * example: Import duty tax
+	 */
 	private String label;
 	
+	/**
+	 * Full description of tax
+	 * example: Import duty is an additional sales tax applicable on all 
+	 * imported goods at a rate of 5%, with no exemptions.
+	 */
 	private String description;
 
 	public String getDescription() {

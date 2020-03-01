@@ -22,6 +22,11 @@ import com.farg.sales.taxes.service.ProductService;
 import com.farg.sales.taxes.service.ShoppingCartService;
 import com.farg.sales.taxes.utils.Utils;
 
+/**
+ * Rest Controller to Shopping Cart features
+ * @author fernandoreb
+ *
+ */
 @RestController
 @RequestMapping(path = "/cart")
 public class ShoppingCartController {
@@ -32,6 +37,12 @@ public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 
+	/**
+	 * Get the resume of purchased items. This method calculates taxes, total value and update 
+	 * price of objects into resume before return.
+	 * @param cartId
+	 * @return
+	 */
 	@GetMapping(path = "/v1/shoppingCartResume")
 	public @ResponseBody ShoppingCartResume getResumeOfShoppingCart(@RequestParam Integer cartId) {
 
@@ -74,11 +85,19 @@ public class ShoppingCartController {
 		return shoppingCartResume;
 	}
 
+	/**
+	 * Get all carts
+	 * @return
+	 */
 	@GetMapping(path = "/v1/shoppingCart")
 	public @ResponseBody Iterable<ShoppingCart> getAllShoppingCartToShoppingCart() {
 		return shoppingCartService.getAllCarts();
 	}
 
+	/**
+	 * Creates a new Cart
+	 * @return
+	 */
 	@PostMapping(path = "/v1/shoppingCart")
 	public @ResponseBody String createShoppingCart() {
 
@@ -89,6 +108,12 @@ public class ShoppingCartController {
 		return "" + shoppingCart.getId();
 	}
 
+	/**
+	 * Add products into a Cart
+	 * @param cartId
+	 * @param productId
+	 * @return
+	 */
 	@PutMapping(path = "/v1/shoppingCart")
 	public ShoppingCart updateShoppingCart(@RequestParam Integer cartId, @RequestParam Integer productId) {
 

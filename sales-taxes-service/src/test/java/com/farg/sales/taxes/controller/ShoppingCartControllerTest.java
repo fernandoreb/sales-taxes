@@ -22,6 +22,11 @@ import com.farg.sales.taxes.service.ProductService;
 import com.farg.sales.taxes.service.SaleTaxService;
 import com.farg.sales.taxes.service.ShoppingCartService;
 
+/**
+ * Unit test for ShoppingCartController
+ * @author fernandoreb
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class ShoppingCartControllerTest {
 	

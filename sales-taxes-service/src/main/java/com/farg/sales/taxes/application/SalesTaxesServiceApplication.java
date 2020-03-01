@@ -9,6 +9,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Class Application Loader
+ * @author fernandoreb
+ *
+ */
 @ComponentScan("com.farg.*")
 @EnableJpaRepositories("com.farg.sales.taxes.repository")
 @EntityScan("com.farg.sales.taxes.model")
@@ -18,7 +23,10 @@ public class SalesTaxesServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SalesTaxesServiceApplication.class, args);
 	}
-	
+	/**
+	 * Add cors to enable requests from angular app.
+	 * @return
+	 */
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {

@@ -8,6 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+/**
+ * Entity for products
+ * @author fernandoreb
+ *
+ */
 @Entity
 public class Product {
 
@@ -15,10 +20,19 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	/**
+	 * Name of product
+	 */
 	private String name;
-
+	
+	/**
+	 * Price of product
+	 */
 	private Float price;
 	
+	/**
+	 * List of sales taxes
+	 */
 	@ManyToMany
 	private List<SaleTax> saleTaxes;
 

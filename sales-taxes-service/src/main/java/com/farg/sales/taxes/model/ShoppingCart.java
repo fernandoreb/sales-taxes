@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/**
+ * Entity for shopping cart
+ * @author fernandoreb
+ *
+ */
 @Entity
 public class ShoppingCart {
 	
@@ -16,6 +21,9 @@ public class ShoppingCart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
+	/**
+	 * List of products
+	 */
 	@OneToMany(
 	        cascade = CascadeType.ALL,
 	        orphanRemoval = true

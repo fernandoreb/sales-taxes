@@ -17,6 +17,11 @@ import com.farg.sales.taxes.model.SaleTax;
 import com.farg.sales.taxes.service.ProductService;
 import com.farg.sales.taxes.service.SaleTaxService;
 
+/**
+ * Rest Controller to Sales Taxes and Products
+ * @author fernandoreb
+ *
+ */
 @RestController
 @RequestMapping(path = "/sales")
 public class SalesProductsTaxesController {
@@ -27,11 +32,20 @@ public class SalesProductsTaxesController {
 	@Autowired
 	private SaleTaxService saleTaxService;
 
+	/**
+	 * Get all products
+	 * @return list of Products
+	 */
 	@GetMapping(path = "/v1/product")
 	public @ResponseBody Iterable<Product> getAllProducts() {
 		return productService.getAllProducts();
 	}
 	
+	/**
+	 * Return a specified product
+	 * @param productId
+	 * @return
+	 */
 	@GetMapping(path = "/v1/product/{productId}")
 	public @ResponseBody Product getProductsById(@PathVariable Integer productId) {
 		Optional<Product> productOp = productService.getProductById(productId);
@@ -39,6 +53,12 @@ public class SalesProductsTaxesController {
 		return productOp.get();
 	}
 
+	/**
+	 * Adds a new product
+	 * @param name
+	 * @param price
+	 * @return
+	 */
 	@PostMapping(path = "/v1/product")
 	public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam Float price) {
 
@@ -50,6 +70,12 @@ public class SalesProductsTaxesController {
 		return ""+product.getId();
 	}
 	
+	/**
+	 * Add a tax into a product
+	 * @param salesTaxId
+	 * @param productId
+	 * @return
+	 */
 	@PutMapping(path = "/v1/product")
 	public Product addSaleTaxToProduct(@RequestParam Integer salesTaxId, @RequestParam Integer productId) {
 		
@@ -62,12 +88,23 @@ public class SalesProductsTaxesController {
 		return productService.save(product);
 	}
 	
+	/**
+	 * Get all sales taxes
+	 * @return
+	 */
 	@GetMapping(path="/v1/tax")
 	public @ResponseBody Iterable<SaleTax>getAllTaxes(){
 		return saleTaxService.getAllTaxes();
 	}
 	
-	@PostMapping(path = "/v1/tax") // Map ONLY POST Requests
+	/**
+	 * Add a new tax
+	 * @param label
+	 * @param percent
+	 * @param description
+	 * @return
+	 */
+	@PostMapping(path = "/v1/tax")
 	public @ResponseBody String addNewTax(@RequestParam String label, @RequestParam Integer percent, @RequestParam String description) {
 
 		SaleTax saleTax = new SaleTax();

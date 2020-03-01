@@ -20,6 +20,11 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.lenient;
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Unit test for SalesProductsTaxesController
+ * @author fernandoreb
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class SalesProductsTaxesControllerTest{
 	
