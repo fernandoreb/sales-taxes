@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,13 @@ public class SalesProductsTaxesController {
 	@GetMapping(path = "/v1/product")
 	public @ResponseBody Iterable<Product> getAllProducts() {
 		return productService.getAllProducts();
+	}
+	
+	@GetMapping(path = "/v1/product/{productId}")
+	public @ResponseBody Product getProductsById(@PathVariable Integer productId) {
+		Optional<Product> productOp = productService.getProductById(productId);
+		
+		return productOp.get();
 	}
 
 	@PostMapping(path = "/v1/product")
