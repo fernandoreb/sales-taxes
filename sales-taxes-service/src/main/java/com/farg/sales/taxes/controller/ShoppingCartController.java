@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.farg.sales.taxes.model.Product;
+import com.farg.sales.taxes.model.SaleTax;
 import com.farg.sales.taxes.model.ShoppingCart;
 import com.farg.sales.taxes.model.ShoppingCartResume;
 import com.farg.sales.taxes.service.ProductService;
@@ -33,37 +34,46 @@ public class ShoppingCartController {
 
 	@GetMapping(path = "/v1/shoppingCartResume")
 	public @ResponseBody ShoppingCartResume getResumeOfShoppingCart(@RequestParam Integer cartId) {
-		
+
 		ShoppingCartResume shoppingCartResume = new ShoppingCartResume();
-		
+
 		Optional<ShoppingCart> shoppingCartOptional = shoppingCartService.getCartById(cartId);
 		ShoppingCart shoppingCart = shoppingCartOptional.get();
 		shoppingCartResume.setShoppingCart(shoppingCart);
-		
+
 		BigDecimal total = new BigDecimal(0.0f);
 		BigDecimal tax = new BigDecimal(0.0f);
 		
+
 		List<Product> products = shoppingCart.getProducts();
-		
+
 		for (Iterator<Product> iterator = products.iterator(); iterator.hasNext();) {
 			Product product = (Product) iterator.next();
-			
-			BigDecimal value = new BigDecimal(product.getPrice());
-			BigDecimal percent = new BigDecimal(product.getSaleTax().getPercent());
-			BigDecimal calcPercent = Utils.calcPercent(value,percent);
-			BigDecimal calcAndAddPercent = Utils.calcAndAddPercent(value,percent);
-			total = total.add(calcAndAddPercent);
-			tax = tax.add(calcPercent);
-			
+
+			List<SaleTax> saleTaxes = product.getSaleTaxes();
+			BigDecimal price = new BigDecimal(product.getPrice());
+			BigDecimal priceOriginal = new BigDecimal(product.getPrice());
+			for (Iterator<SaleTax> iterator1 = saleTaxes.iterator(); iterator1.hasNext();) {
+				SaleTax saleTax = (SaleTax) iterator1.next();
+				BigDecimal percent = new BigDecimal(saleTax.getPercent());
+				if (percent.floatValue() > 0.0f) {
+					BigDecimal calcPercent = Utils.calcPercent(priceOriginal, percent);
+					tax = tax.add(calcPercent);
+					price = price.add(calcPercent);
+					
+				}
+			}
+			total = total.add(price);
+			product.setPrice(price.floatValue());
+
 		}
-		
+
 		shoppingCartResume.setSalesTaxes(tax.floatValue());
 		shoppingCartResume.setTotal(total.floatValue());
-		
+
 		return shoppingCartResume;
 	}
 
-	
 	@GetMapping(path = "/v1/shoppingCart")
 	public @ResponseBody Iterable<ShoppingCart> getAllShoppingCartToShoppingCart() {
 		return shoppingCartService.getAllCarts();
@@ -73,22 +83,22 @@ public class ShoppingCartController {
 	public @ResponseBody String createShoppingCart() {
 
 		ShoppingCart shoppingCart = new ShoppingCart();
-		
+
 		shoppingCartService.save(shoppingCart);
-		
-		return ""+shoppingCart.getId();
+
+		return "" + shoppingCart.getId();
 	}
-	
+
 	@PutMapping(path = "/v1/shoppingCart")
 	public void updateShoppingCart(@RequestParam Integer cartId, @RequestParam Integer productId) {
-		
+
 		Optional<ShoppingCart> shoppingCart = shoppingCartService.getCartById(cartId);
 		Optional<Product> product = productService.getProductById(productId);
-		
+
 		shoppingCart.get().getProducts().add(product.get());
-		
+
 		shoppingCartService.save(shoppingCart.get());
-		
+
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,19 +31,27 @@ public class SalesProductsTaxesController {
 		return productService.getAllProducts();
 	}
 
-	@PostMapping(path = "/v1/product") // Map ONLY POST Requests
-	public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam Float price,
-			@RequestParam Integer taxType) {
+	@PostMapping(path = "/v1/product")
+	public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam Float price) {
 
 		Product product = new Product();
 		product.setName(name);
 		product.setPrice(price);
 
-		Optional<SaleTax> saleTax = saleTaxService.getSaleTaxById(taxType);
-
-		product.setSaleTax(saleTax.get());
 		productService.save(product);
 		return ""+product.getId();
+	}
+	
+	@PutMapping(path = "/v1/product")
+	public void addSaleTaxToProduct(@RequestParam Integer salesTaxId, @RequestParam Integer productId) {
+		
+		Optional<SaleTax> saleTaxOp = saleTaxService.getSaleTaxById(salesTaxId);
+		Optional<Product> productOp = productService.getProductById(productId);
+	
+		Product product = productOp.get();
+		
+		product.getSaleTaxes().add(saleTaxOp.get());
+		productService.save(product);
 	}
 	
 	@GetMapping(path="/v1/tax")
