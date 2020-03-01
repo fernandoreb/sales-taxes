@@ -51,7 +51,7 @@ public class SalesProductsTaxesController {
 	}
 	
 	@PutMapping(path = "/v1/product")
-	public void addSaleTaxToProduct(@RequestParam Integer salesTaxId, @RequestParam Integer productId) {
+	public Product addSaleTaxToProduct(@RequestParam Integer salesTaxId, @RequestParam Integer productId) {
 		
 		Optional<SaleTax> saleTaxOp = saleTaxService.getSaleTaxById(salesTaxId);
 		Optional<Product> productOp = productService.getProductById(productId);
@@ -59,12 +59,12 @@ public class SalesProductsTaxesController {
 		Product product = productOp.get();
 		
 		product.getSaleTaxes().add(saleTaxOp.get());
-		productService.save(product);
+		return productService.save(product);
 	}
 	
 	@GetMapping(path="/v1/tax")
 	public @ResponseBody Iterable<SaleTax>getAllTaxes(){
-		return saleTaxService.getAllProducts();
+		return saleTaxService.getAllTaxes();
 	}
 	
 	@PostMapping(path = "/v1/tax") // Map ONLY POST Requests

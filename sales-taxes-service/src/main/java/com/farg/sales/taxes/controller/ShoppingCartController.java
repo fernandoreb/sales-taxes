@@ -90,14 +90,14 @@ public class ShoppingCartController {
 	}
 
 	@PutMapping(path = "/v1/shoppingCart")
-	public void updateShoppingCart(@RequestParam Integer cartId, @RequestParam Integer productId) {
+	public ShoppingCart updateShoppingCart(@RequestParam Integer cartId, @RequestParam Integer productId) {
 
 		Optional<ShoppingCart> shoppingCart = shoppingCartService.getCartById(cartId);
 		Optional<Product> product = productService.getProductById(productId);
 
 		shoppingCart.get().getProducts().add(product.get());
 
-		shoppingCartService.save(shoppingCart.get());
+		return shoppingCartService.save(shoppingCart.get());
 
 	}
 

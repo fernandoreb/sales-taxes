@@ -18,11 +18,11 @@ public class SaleTaxService {
 		return saleTaxRepository.findById(id);
 	}
 	
-	public Iterable<SaleTax>getAllProducts(){
+	public Iterable<SaleTax>getAllTaxes(){
 		return saleTaxRepository.findAll();
 	}
 	
-	public void save(SaleTax saleTax) {
-		saleTaxRepository.save(saleTax);
+	public SaleTax save(SaleTax saleTax) {
+		return saleTaxRepository.save(saleTax);
 	}
 }

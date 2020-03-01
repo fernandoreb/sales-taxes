@@ -18,8 +18,8 @@ public class ShoppingCartService {
 		return shoppingCartRepository.findAll();
 	}
 	
-	public void save(ShoppingCart shoppingCart) {
-		shoppingCartRepository.save(shoppingCart);
+	public ShoppingCart save(ShoppingCart shoppingCart) {
+		return shoppingCartRepository.save(shoppingCart);
 	}
 	
 	public Optional<ShoppingCart> getCartById(Integer id) {
